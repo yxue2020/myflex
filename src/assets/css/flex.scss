@@ -1,0 +1,214 @@
+/**
+ * flex sass
+ *
+ * 对齐方式:
+ *     {d} = row        横向排列
+ *     {d} = col        纵向排列
+ * ------------------+-------------------+------------------+
+ * | {d}        (or) | {d}-center   (or) | {d}-right   (or) |
+ * | {d}-left-top    | {d}-center-top    | {d}-right-top    |
+ * +-----------------+-------------------+------------------+
+ * | {d}-left-center | {d}-center-center | {d}-right-center |
+ * +-----------------+-------------------+------------------+
+ * | {d}-left-bottom | {d}-center-bottom | {d}-right-bottom |
+ * +-----------------+-------------------+------------------+
+ */
+
+@mixin _macro_flex($value) {
+  display: flex;
+  display: -webkit-flex;
+
+  // 主轴和交叉轴默认对齐
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  flex-wrap: wrap;
+
+  // 各行向弹性盒容器的起始位置堆叠。弹性盒容器中第一行的侧轴起始边界紧靠住
+  // 该弹性盒容器的侧轴起始边界，之后的每一行都紧靠住前面一行
+  align-content: flex-start;
+
+  flex-direction: $value;
+}
+
+// 主轴对齐方式
+@mixin _macro_flex_justify($value) {
+  justify-content: $value;
+}
+
+// 交叉轴对齐方式
+@mixin _macro_flex_align($value) {
+  @if not ($value == space-between or $value == space-around or $value == space-evenly) {
+    align-items: $value;
+  }
+
+  align-content: $value;    // 堆叠伸缩行的对齐方式
+}
+
+// _macro_align(主轴对齐方式, 交叉轴对齐方式[可选])
+@mixin _macro_align($justify, $align: null) {
+  @include _macro_flex_justify($justify);
+
+  @if $align != null {
+    @include _macro_flex_align($align);
+  }
+}
+
+// 主轴为水平方向，起点在左端
+.row { @include _macro_flex(row); }
+
+// 主轴为水平方向，起点在右端
+// .row-reverse { @include _macro_flex(row-reverse); }
+
+// 主轴为垂直方向，起点在上沿
+.col { @include _macro_flex(column); }
+
+// 主轴为垂直方向，起点在下沿
+// .col-reverse { @include _macro_flex(column-reverse); }
+
+/************** 对齐方式 **************/
+
+// row-left
+.row-left { @extend .row; @include _macro_align(flex-start, flex-start); }
+.row-left-top { @extend .row-left; }
+.row-left-center { @extend .row; @include _macro_align(flex-start, center); }
+.row-left-bottom { @extend .row; @include _macro_align(flex-start, flex-end); }
+.row-left-around { @extend .row; @include _macro_align(flex-start, space-around); }
+.row-left-between { @extend .row; @include _macro_align(flex-start, space-between); }
+.row-left-evenly { @extend .row; @include _macro_align(flex-start, space-evenly); }
+
+// row-center
+.row-center { @extend .row; @include _macro_align(center, flex-start); }
+.row-center-top { @extend .row-center; }
+.row-center-center { @extend .row; @include _macro_align(center, center); }
+.row-center-bottom { @extend .row; @include _macro_align(center, flex-end); }
+.row-center-around { @extend .row; @include _macro_align(center, space-around); }
+.row-center-between { @extend .row; @include _macro_align(center, space-between); }
+.row-center-evenly { @extend .row; @include _macro_align(center, space-evenly); }
+
+// row-right
+.row-right { @extend .row; @include _macro_align(flex-end, flex-start); }
+.row-right-top { @extend .row-right; }
+.row-right-center { @extend .row; @include _macro_align(flex-end, center); }
+.row-right-bottom { @extend .row; @include _macro_align(flex-end, flex-end); }
+.row-right-around { @extend .row; @include _macro_align(flex-end, space-around); }
+.row-right-between { @extend .row; @include _macro_align(flex-end, space-between); }
+.row-right-evenly { @extend .row; @include _macro_align(flex-end, space-evenly); }
+
+// row-around
+.row-around { @extend .row; @include _macro_align(space-around, flex-start); }
+.row-around-top { @extend .row-around; }
+.row-around-center { @extend .row; @include _macro_align(space-around, center); }
+.row-around-bottom { @extend .row; @include _macro_align(space-around, flex-end); }
+.row-around-around { @extend .row; @include _macro_align(space-around, space-around); }
+.row-around-between { @extend .row; @include _macro_align(space-around, space-between); }
+.row-around-evenly { @extend .row; @include _macro_align(space-around, space-evenly); }
+
+// row-between
+.row-between { @extend .row; @include _macro_align(space-between, flex-start); }
+.row-between-top { @extend .row-between; }
+.row-between-center { @extend .row; @include _macro_align(space-between, center); }
+.row-between-bottom { @extend .row; @include _macro_align(space-between, flex-end); }
+.row-between-around { @extend .row; @include _macro_align(space-between, space-around); }
+.row-between-between { @extend .row; @include _macro_align(space-between, space-between); }
+.row-between-evenly { @extend .row; @include _macro_align(space-between,  space-evenly); }
+
+// space-evenly
+.row-evenly { @extend .row; @include _macro_align(space-evenly, flex-start); }
+.row-evenly-top { @extend .row-evenly; }
+.row-evenly-center { @extend .row; @include _macro_align(space-evenly, center); }
+.row-evenly-bottom { @extend .row; @include _macro_align(space-evenly, flex-end); }
+.row-evenly-around { @extend .row; @include _macro_align(space-evenly, space-around); }
+.row-evenly-between { @extend .row; @include _macro_align(space-evenly, space-between); }
+.row-evenly-evenly { @extend .row; @include _macro_align(space-evenly,  space-evenly); }
+
+// col-left
+.col-left { @extend .col; @include _macro_align(flex-start, flex-start); }
+.col-left-top { @extend .col-left; }
+.col-left-center { @extend .col; @include _macro_align(center, flex-start); }
+.col-left-bottom { @extend .col; @include _macro_align(flex-end, flex-start); }
+.col-left-around { @extend .col; @include _macro_align(space-around, flex-start); }
+.col-left-between { @extend .col; @include _macro_align(space-between, flex-start); }
+.col-left-evenly { @extend .col; @include _macro_align(space-evenly, flex-start); }
+
+// col-center
+.col-center { @extend .col; @include _macro_align(flex-start, center); }
+.col-center-top { @extend .col-center; }
+.col-center-center { @extend .col; @include _macro_align(center, center); }
+.col-center-bottom { @extend .col; @include _macro_align(flex-end, center); }
+.col-center-around { @extend .col; @include _macro_align(space-around, center); }
+.col-center-between { @extend .col; @include _macro_align(space-between, center); }
+.col-center-evenly { @extend .col; @include _macro_align(space-evenly, center); }
+
+// col-right
+.col-right { @extend .col; @include _macro_align(flex-start, flex-end); }
+.col-right-top { @extend .col-right; }
+.col-right-center { @extend .col; @include _macro_align(center, flex-end); }
+.col-right-bottom { @extend .col; @include _macro_align(flex-end, flex-end); }
+.col-right-around { @extend .col; @include _macro_align(space-around, flex-end); }
+.col-right-between { @extend .col; @include _macro_align(space-between, flex-end); }
+.col-right-evenly { @extend .col; @include _macro_align(space-evenly, flex-end); }
+
+// col-around
+.col-around { @extend .col; @include _macro_align(flex-start, space-around); }
+.col-around-top { @extend .col-around; }
+.col-around-center { @extend .col; @include _macro_align(center, space-around); }
+.col-around-bottom { @extend .col; @include _macro_align(flex-end, space-around); }
+.col-around-around { @extend .col; @include _macro_align(space-around, space-around); }
+.col-around-between { @extend .col; @include _macro_align(space-between, space-around); }
+.col-around-evenly { @extend .col; @include _macro_align(space-evenly, space-around); }
+
+// col-between
+.col-between { @extend .col; @include _macro_align(flex-start, space-between); }
+.col-between-top { @extend .col-between; }
+.col-between-center { @extend .col; @include _macro_align(center, space-between); }
+.col-between-bottom { @extend .col; @include _macro_align(flex-end, space-between); }
+.col-between-around { @extend .col; @include _macro_align(space-around, space-between); }
+.col-between-between { @extend .col; @include _macro_align(space-between, space-between); }
+.col-between-evenly { @extend .col; @include _macro_align(space-evenly,  space-between); }
+
+// col-evenly
+.col-evenly { @extend .col; @include _macro_align(flex-start, space-evenly); }
+.col-evenly-top { @extend .col-evenly; }
+.col-evenly-center { @extend .col; @include _macro_align(center, space-evenly); }
+.col-evenly-bottom { @extend .col; @include _macro_align(flex-end, space-evenly); }
+.col-evenly-around { @extend .col; @include _macro_align(space-around, space-evenly); }
+.col-evenly-between { @extend .col; @include _macro_align(space-between, space-evenly); }
+.col-evenly-evenly { @extend .col; @include _macro_align(space-evenly, space-evenly); }
+
+// nowrap
+.nowrap { flex-wrap: nowrap; }
+
+// 各行将会伸展以占用剩余的空间(没有设置width，height)
+.stretch {
+  @include _macro_flex_align(stretch);
+}
+
+// flex 1-24
+@mixin _macro_flex($value) {
+  flex: $value;
+}
+.flex-1 { @include _macro_flex(1); }
+.flex-2 { @include _macro_flex(2); }
+.flex-3 { @include _macro_flex(3); }
+.flex-4 { @include _macro_flex(4); }
+.flex-5 { @include _macro_flex(5); }
+.flex-6 { @include _macro_flex(6); }
+.flex-7 { @include _macro_flex(7); }
+.flex-8 { @include _macro_flex(8); }
+.flex-9 { @include _macro_flex(9); }
+.flex-10 { @include _macro_flex(10); }
+.flex-11 { @include _macro_flex(11); }
+.flex-12 { @include _macro_flex(12); }
+.flex-13 { @include _macro_flex(13); }
+.flex-14 { @include _macro_flex(14); }
+.flex-15 { @include _macro_flex(15); }
+.flex-16 { @include _macro_flex(16); }
+.flex-17 { @include _macro_flex(17); }
+.flex-18 { @include _macro_flex(18); }
+.flex-19 { @include _macro_flex(19); }
+.flex-20 { @include _macro_flex(20); }
+.flex-21 { @include _macro_flex(21); }
+.flex-22 { @include _macro_flex(22); }
+.flex-23 { @include _macro_flex(23); }
+.flex-24 { @include _macro_flex(24); }
