@@ -1,6 +1,11 @@
 <template>
   <div class="header">
-    <div>{{ msg }}</div>
+    <div class="menu container">
+      <ul>
+        <li>Home</a></li>
+        <li>列子</li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -17,7 +22,31 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+$header-height: 40px;
+
 .header {
-  background-color: #ccc;
+  background-color: #00BCD4;
+  height: $header-height;
+
+  .menu {
+
+    font-size: 16px;
+    color: #eee;
+    // background-color: #00BCD4;
+    ul {
+      margin: 0px;
+      padding: 0px;
+
+      > li {
+        line-height: $header-height;
+        list-style: none;
+        display: inline;
+        cursor: pointer;
+        & :hover {
+          background-color: blue;
+        }
+      }
+    }
+  }
 }
 </style>

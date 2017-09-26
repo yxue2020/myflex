@@ -14,7 +14,6 @@ export default {
 
 <style lang="scss">
 #app {
-  border:1px solid green;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   font-size: 14px;
   // -webkit-font-smoothing: antialiased;

@@ -151,7 +151,6 @@ export default {
       min-width: 30px;
       min-height: 20px;
       text-align: center;
-      // line-height: 20px;
       background-color: #fcc;
       border: 1px solid #9E9E9E;
     }

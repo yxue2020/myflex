@@ -2,14 +2,14 @@
  * style scss
  */
 
-.container {
-  border:1px solid blue;
-  max-width: 960px;
-  margin:auto;
+body {
+  padding: 0px;
+  margin: 0px;
 }
 
-.header {
-  background-color: #ccc;
+.container {
+  max-width: 960px;
+  margin:auto;
 }
 
 .footer {
